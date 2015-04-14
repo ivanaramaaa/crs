@@ -11,7 +11,52 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406164956) do
+ActiveRecord::Schema.define(version: 20150413013252) do
+
+  create_table "conference_registrations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "conference_id"
+    t.integer  "receipt_id"
+    t.string   "diet"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "conference_registrations", ["conference_id"], name: "index_conference_registrations_on_conference_id"
+  add_index "conference_registrations", ["receipt_id"], name: "index_conference_registrations_on_receipt_id"
+  add_index "conference_registrations", ["user_id"], name: "index_conference_registrations_on_user_id"
+
+  create_table "conferences", force: :cascade do |t|
+    t.string   "name"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.decimal  "fee"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "credit_cards", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "number"
+    t.string   "month"
+    t.integer  "year"
+    t.integer  "cvv"
+    t.string   "type"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id"
+
+  create_table "receipts", force: :cascade do |t|
+    t.decimal  "total"
+    t.integer  "credit_card_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "receipts", ["credit_card_id"], name: "index_receipts_on_credit_card_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

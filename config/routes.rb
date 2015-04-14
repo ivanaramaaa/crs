@@ -1,8 +1,31 @@
 Rails.application.routes.draw do
+  
+  get 'conferences/new'
+
+  get 'conferences/create'
+
+  get 'conferences/edit'
+
+  get 'conferences/update'
+
+  get 'conferences/destroy'
+
+  resources :users do
+  resources :credit_cards
+  end
+
+  resources :users do
+  resources :receipt
+  end
+
+  resources :conferences do
+  resources :conference_registrations
+  end
+
+  resources :conferences
+
   get 'password_resets/new'
-
   get 'password_resets/edit'
-
   get 'sessions/new'
 
   root             'static_pages#home'
