@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
   
+  get 'credit_cards/index'
+
+  get 'credit_cards/new'
+
+  get 'credit_cards/create'
+
+  get 'credit_cards/edit'
+
+  get 'credit_cards/update'
+
+  get 'credit_cards/show'
+
+  get 'credit_cards/destroy'
+
   get 'conferences/new'
 
   get 'conferences/create'

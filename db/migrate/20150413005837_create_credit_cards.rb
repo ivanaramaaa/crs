@@ -6,7 +6,7 @@ class CreateCreditCards < ActiveRecord::Migration
       t.string :month
       t.integer :year
       t.integer :cvv
-      t.string :type
+      t.string :cc_type
       t.references :user, index: true
 
       t.timestamps null: false

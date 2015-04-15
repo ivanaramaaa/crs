@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   has_many :conference_registrations
   has_many :receipts, through: :conference_registrations
-
   has_many :credit_cards
 
   attr_accessor :remember_token, :activation_token, :reset_token

@@ -1,0 +1,33 @@
+<% provide(:title, 'View All Credi Cards') %>
+<h1>Your credit cards</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Credit Card Number</th>
+				<th>Expiration Month</th>
+				<th>Expiration Year</th>
+				<th>CVV</th>
+				<th>Card Type</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+			<% @credit_cards.each do |card| %>
+			<tr>
+				<td><%= card.name %></td>
+				<td><%= card.number %></td>
+				<td><%= card.month %></td>
+				<td><%= card.year %></td>
+				<td><%= card.cvv %></td>
+				<td><%= card.cc_type %></td>
+				<td><%= link_to 'Edit', edit_user_credit_card_path(@user, card) %></td>
+				<td><%= link_to 'Delete', user_credit_card_path(@user, card),
+				        method: :delete,
+                data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+			<% end %>
+		</table>
+		<p class="text-center"><%= link_to 'Add another card', new_user_credit_card_path %></p>
+	</div>
+ </div>

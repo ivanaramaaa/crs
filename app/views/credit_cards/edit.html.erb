@@ -1,0 +1,35 @@
+<% provide(:title, 'Edit Credit Card') %>
+<h1>Edit this credit card</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_for @credit_card, url: user_credit_card_path, method: :patch do |card| %>
+		<% if @credit_card.errors.any? %>
+		<div id="error_explanation">
+			<h2>
+				<%= pluralize(@credit_card.errors.count, "error") %> prohibited
+				this credit card from being saved:
+			</h2>
+			<ul>
+				<% @credit_card.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+		<% end %>
+		<%= card.label :name %>
+		<%= card.text_field :name %>
+		<%= card.label :number %>
+		<%= card.number_field :number %>
+		<%= card.label :month %>
+		<%= card.text_field :month %>
+		<%= card.label :year %>
+		<%= card.number_field :year %>
+		<%= card.label :cvv %>
+		<%= card.number_field :cvv %>
+		<%= card.label :cc_type %>
+		<%= card.text_field :cc_type %>
+		<%= card.submit "Update", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+	<p class="text-center"><%= link_to 'Go back to view all', user_credit_cards_path %></p>
+</div>

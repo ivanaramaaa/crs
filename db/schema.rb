@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150413013252) do
     t.string   "month"
     t.integer  "year"
     t.integer  "cvv"
-    t.string   "type"
+    t.string   "cc_type"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
