@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   end
 
   resources :users do
+  resources :papers
+  end
+
+  resources :users do
   resources :receipt
   end
 

@@ -1,0 +1,16 @@
+<% provide(:title, 'Add Paper') %>
+<h1>Add a paper</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+
+		<%= form_for([@user, @paper], :url => user_papers_path, :html => { :multipart => true }) do |paper| %>
+		<%= paper.label :title %>
+		<%= paper.text_field :title %>
+		<%= paper.label :authors %>
+		<%= paper.text_field :authors %>
+		<%= paper.file_field :attachment %>
+		<%= paper.submit "Add", class: "btn btn-primary" %>
+		<% end %>
+	</div>
+	<p class="text-center"><%= link_to 'Go back to view all', user_papers_path %></p>
+</div>

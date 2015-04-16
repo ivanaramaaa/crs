@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413013252) do
+ActiveRecord::Schema.define(version: 20150415230819) do
 
   create_table "conference_registrations", force: :cascade do |t|
     t.integer  "user_id"
@@ -48,6 +48,20 @@ ActiveRecord::Schema.define(version: 20150413013252) do
   end
 
   add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id"
+
+  create_table "papers", force: :cascade do |t|
+    t.string   "title"
+    t.string   "authors"
+    t.integer  "user_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  add_index "papers", ["user_id"], name: "index_papers_on_user_id"
 
   create_table "receipts", force: :cascade do |t|
     t.decimal  "total"

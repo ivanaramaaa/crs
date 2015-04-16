@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :conference_registrations
   has_many :receipts, through: :conference_registrations
   has_many :credit_cards
+  has_many :papers
 
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email

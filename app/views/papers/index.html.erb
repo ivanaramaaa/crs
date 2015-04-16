@@ -1,0 +1,33 @@
+<% provide(:title, 'View All Papers') %>
+<h1>Your papers</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>Name</th>
+				<th>Authors</th>
+				<th>Attachment</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</tr>
+			<% @papers.each do |paper| %>
+			<tr>
+				<td><%= paper.title %></td>
+				<td><%= paper.authors %></td>
+				<td>
+				  <% if paper && paper.attachment? %>
+				  	<span class="label label-info">Attachment</span>
+				  	<%= link_to paper.title, paper.attachment.url %>
+				  <% end %>
+				</td>
+				<td><%= link_to 'Edit', edit_user_paper_path(@user, paper) %></td>
+				<td><%= link_to 'Delete', user_paper_path(@user, paper),
+				        method: :delete,
+                data: { confirm: 'Are you sure?' } %></td>
+			</tr>
+			<% end %>
+		</table>
+		<p class="text-center"><%= link_to 'Add another paper', new_user_paper_path %></p>
+		<p class="text-center"><%= link_to 'Return to your profile', edit_user_path(@user) %></p>
+	</div>
+ </div>

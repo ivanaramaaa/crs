@@ -21,12 +21,13 @@
       <%= f.submit "Save changes", class: "btn btn-primary" %>
     <% end %>
 
-    <div class="gravatar_edit">
+    <p><div class="gravatar_edit">
       <%= gravatar_for @user %>
       <a href="http://gravatar.com/emails" target=_blank>Change your profile picture</a>
-    </div>
+    </div></p>
 
-    <%= link_to 'Manage your credit cards', user_credit_cards_path(@user.id) %>
+    <p><%= link_to 'Manage your credit cards', user_credit_cards_path(@user) %></p>
+    <p><%= link_to 'Manage your papers', user_papers_path(@user) %></p>
 
   </div>
 </div>
