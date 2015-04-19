@@ -1,5 +1,5 @@
 class ConferencesController < ApplicationController
-  before_action :admin_access
+  before_action :admin_access, only: [:new, :create, :edit, :update, :show, :destroy]
 
   def index
     @conferences = Conference.all
@@ -42,9 +42,9 @@ end
     redirect_to conferences_path
   end
 
-  private 
+  private
 
   def conference_params
-    params.require(:conference).permit(:name, :start_date, :end_date, :fee)
+    params.require(:conference).permit(:name, :start_date, :end_date, :fee, :paper_fee)
   end 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150415230819) do
+ActiveRecord::Schema.define(version: 20150419140451) do
 
   create_table "conference_registrations", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,9 +20,13 @@ ActiveRecord::Schema.define(version: 20150415230819) do
     t.string   "diet"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "name"
+    t.string   "email"
+    t.integer  "paper_id"
   end
 
   add_index "conference_registrations", ["conference_id"], name: "index_conference_registrations_on_conference_id"
+  add_index "conference_registrations", ["paper_id"], name: "index_conference_registrations_on_paper_id"
   add_index "conference_registrations", ["receipt_id"], name: "index_conference_registrations_on_receipt_id"
   add_index "conference_registrations", ["user_id"], name: "index_conference_registrations_on_user_id"
 
@@ -33,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150415230819) do
     t.decimal  "fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal  "paper_fee"
   end
 
   create_table "credit_cards", force: :cascade do |t|

@@ -1,0 +1,21 @@
+<% provide(:title, 'View All Conferences') %>
+<h1>All conferences</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+	  <h2>Select a conference to register for</h2>
+	  <%= form_tag new_conference_registration_path, method: :get %>
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>Conference Name</th>
+				<th>Select One</th>
+			</tr>
+			<% @conferences.each do |conference| %>
+			<tr>
+				<td><%= conference.name %></td>
+				<td><%= check_box_tag :conference_id, conference.id %></td>
+			</tr>
+			<% end %>
+		</table>
+		<%= submit_tag "Next" %>
+	</div>
+</div>

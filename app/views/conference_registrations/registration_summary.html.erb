@@ -1,0 +1,70 @@
+<% provide(:title, 'Conference Registration Form Summary') %>
+<h1>Registration Summary</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_tag registration_final_path %>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Participant Information</h3>
+			</div>
+			<div class="panel-body">
+				<p><strong>Name:</strong> <%= @conf_reg["name"] %></p>
+				<p><strong>Email:</strong> <%= @conf_reg["email"] %></p>
+				<p><strong>Participant's Dietary Preference:</strong> <%= @conf_reg["diet"] %></p>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Paper Information</h3>
+			</div>
+			<div class="panel-body">
+				<% if @paper %>
+				<p><strong>Title:</strong> <%= @paper.title %></p>
+				<p><strong>Author(s):</strong> <%= @paper.authors %></p>
+				<p><span class="label label-info">Attachment</span>
+					<%= link_to @paper.title, @paper.attachment.url %>
+				</p>
+				<% else %>
+				<p><strong>None</strong></p>
+				<% end %>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Fee Summary</h3>
+			</div>
+			<div class="panel-body">
+				<p><strong>Conference Fee:</strong> <%= @conference.fee %></p>
+				<p><strong>Paper Fee:</strong> <%= @conference.paper_fee %></p>
+				<hr/>
+				<p><strong>Total Due:</strong> <%= @conference.fee + @conference.paper_fee %></p>
+				<% @total_due = @conference.fee + @conference.paper_fee %>
+				<%= hidden_field_tag :total, value: @total_due %>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Payment Information</h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>Name</th>
+						<th>Credit Card Number</th>
+						<th>Card Type</th>
+						<th>Select One</th>
+					</tr>
+					<% @cards.each do |card| %>
+					<tr>
+						<td><%= card.name %></td>
+						<td><%= card.number %></td>
+						<td><%= card.cc_type %></td>
+						<td><%= check_box_tag :credit_card_id, card.id %></td>
+					</tr>
+					<% end %>
+				</table>
+			</div>
+			<%= submit_tag "Next", class: "btn btn-primary"%>
+		</div>
+	</div>
+</div>

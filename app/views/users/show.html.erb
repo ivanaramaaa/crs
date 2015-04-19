@@ -1,11 +1,20 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
+	<div class="well">
+		<h1>
+			Welcome, <%= @user.name %>!
+		</h1>
+		<%= gravatar_for @user %>
+		<div class="text-center">
+		<h2>Select an option below to get started.</h2>
+			<h3>Your conference registrations</h3>
+			<p><%= link_to "Submit a new conference registration", select_conference_path%></p>
+			<p><%= link_to "Edit a submitted conference registration", select_conference_path%></p>
+			<p><%= link_to "See past conference registrations", select_conference_path%></p>
+			<h3>Your papers</h3>
+			<p><%= link_to 'Manage your papers', user_papers_path(@user) %></p>
+			<h3>Your payment information</h3>
+			<p><%= link_to 'Manage your credit cards', user_credit_cards_path(@user) %></p>
+		</div>
+	</div>
 </div>
