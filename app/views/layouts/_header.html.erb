@@ -3,8 +3,8 @@
     <%= link_to "CRS", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Dashboard", current_user %></li>
         <% if logged_in? %>
+        <li><%= link_to "Dashboard", current_user %></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               Account <b class="caret"></b>

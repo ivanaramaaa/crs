@@ -7,14 +7,12 @@
 		<%= gravatar_for @user %>
 		<div class="text-center">
 		<h2>Select an option below to get started.</h2>
-			<h3>Your conference registrations</h3>
+			<h3>Manage your conference registrations</h3>
 			<p><%= link_to "Submit a new conference registration", select_conference_path%></p>
-			<p><%= link_to "Edit a submitted conference registration", select_conference_path%></p>
-			<p><%= link_to "See past conference registrations", select_conference_path%></p>
-			<h3>Your papers</h3>
-			<p><%= link_to 'Manage your papers', user_papers_path(@user) %></p>
-			<h3>Your payment information</h3>
-			<p><%= link_to 'Manage your credit cards', user_credit_cards_path(@user) %></p>
+			<p><%= link_to "View all of your conference registrations", conference_registrations_path%></p>
+			<h3>Manage your papers</h3>
+			<p><%= link_to 'Upload a new paper', new_user_paper_path(@user) %></p>
+			<p><%= link_to 'View all of your papers', user_papers_path(@user) %></p>
 		</div>
 	</div>
 </div>

@@ -6,11 +6,13 @@
 		<%= form_for([@user, @paper], :url => user_papers_path, :html => { :multipart => true }) do |paper| %>
 		<%= paper.label :title %>
 		<%= paper.text_field :title %>
-		<%= paper.label :authors %>
+		<%= paper.label "Author(s)" %>
 		<%= paper.text_field :authors %>
+		<%= paper.label "Attachment (must be in PDF form)" %>
 		<%= paper.file_field :attachment %>
 		<%= paper.submit "Add", class: "btn btn-primary" %>
 		<% end %>
+		<br>
+		<p class="text-center"><%= link_to 'Return to your dashboard', user_path(@user) %></p>
 	</div>
-	<p class="text-center"><%= link_to 'Go back to view all', user_papers_path %></p>
 </div>

@@ -11,12 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419140451) do
+ActiveRecord::Schema.define(version: 20150420164815) do
 
   create_table "conference_registrations", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "conference_id"
-    t.integer  "receipt_id"
     t.string   "diet"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
@@ -27,7 +26,6 @@ ActiveRecord::Schema.define(version: 20150419140451) do
 
   add_index "conference_registrations", ["conference_id"], name: "index_conference_registrations_on_conference_id"
   add_index "conference_registrations", ["paper_id"], name: "index_conference_registrations_on_paper_id"
-  add_index "conference_registrations", ["receipt_id"], name: "index_conference_registrations_on_receipt_id"
   add_index "conference_registrations", ["user_id"], name: "index_conference_registrations_on_user_id"
 
   create_table "conferences", force: :cascade do |t|
@@ -71,10 +69,12 @@ ActiveRecord::Schema.define(version: 20150419140451) do
   create_table "receipts", force: :cascade do |t|
     t.decimal  "total"
     t.integer  "credit_card_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "conference_registration_id"
   end
 
+  add_index "receipts", ["conference_registration_id"], name: "index_receipts_on_conference_registration_id"
   add_index "receipts", ["credit_card_id"], name: "index_receipts_on_credit_card_id"
 
   create_table "users", force: :cascade do |t|

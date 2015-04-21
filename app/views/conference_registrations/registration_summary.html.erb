@@ -2,7 +2,7 @@
 <h1>Registration Summary</h1>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<%= form_tag registration_final_path %>
+		<%= form_tag(controller: "conference_registrations", action: "final", method: "get") %>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Participant Information</h3>
@@ -38,8 +38,8 @@
 				<p><strong>Paper Fee:</strong> <%= @conference.paper_fee %></p>
 				<hr/>
 				<p><strong>Total Due:</strong> <%= @conference.fee + @conference.paper_fee %></p>
-				<% @total_due = @conference.fee + @conference.paper_fee %>
-				<%= hidden_field_tag :total, value: @total_due %>
+				<% total_due = @conference.fee + @conference.paper_fee %>
+				<%= hidden_field_tag :total,total_due %>
 			</div>
 		</div>
 		<div class="panel panel-primary">
@@ -64,7 +64,7 @@
 					<% end %>
 				</table>
 			</div>
-			<%= submit_tag "Next", class: "btn btn-primary"%>
 		</div>
+		<%= submit_tag "Next", class: "btn btn-primary"%>
 	</div>
 </div>

@@ -19,4 +19,11 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: user.email, subject: "Password reset"
   end
+
+  def receipt(user, receipt, registration)
+   @user = user
+   @receipt = receipt
+   @conf_reg = registration
+   mail to: user.email, subject: "CRS Conference Registration Receipt"
+  end
 end

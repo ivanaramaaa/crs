@@ -1,5 +1,10 @@
 class ConferenceRegistrationsController < ApplicationController
 
+	def index
+		@user = current_user
+		@user_registrations = current_user.conference_registrations
+	end
+
 	def select_conference
 		@conferences = Conference.all
 	end
@@ -18,6 +23,17 @@ class ConferenceRegistrationsController < ApplicationController
     redirect_to action: :registration_summary
 	end
 
+	def edit
+
+	end
+
+	def edit
+
+	end
+
+	def destroy
+	end
+
 	def registration_summary
 		@conf_reg = session[:tmp_conf_reg]
 		@paper = Paper.find(@conf_reg["paper_id"])
@@ -30,9 +46,12 @@ class ConferenceRegistrationsController < ApplicationController
 		@receipt = Receipt.new
 		@receipt.credit_card_id = params[:credit_card_id]
 		@receipt.total = params[:total]
-		if @conf_reg.save && @receipt.save
+		@conf_reg.save
+		@receipt.conference_registration_id = @conf_reg.id
+		if @receipt.save
 			flash[:success] = "Thank you for registering!"
-			redirect_to registration_final_path
+			UserMailer.receipt(current_user, @receipt, @conf_reg).deliver_now
+			redirect_to receipt_path(@receipt.id)
 		else
       flash[:danger] = "Something went wrong in saving your registration!"
 			render 'registration_summary'

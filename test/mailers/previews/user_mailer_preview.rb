@@ -16,4 +16,13 @@ class UserMailerPreview < ActionMailer::Preview
     user.reset_token = User.new_token
     UserMailer.password_reset(user)
   end
+
+  # Preview this email at
+  # http://localhost:3000/rails/mailers/user_mailer/receipt
+  def receipt
+    user = User.first
+    receipt = Receipt.last
+    registration = ConferenceRegistration.last
+    UserMailer.receipt(user, receipt, registration)
+  end
 end

@@ -1,0 +1,18 @@
+<% @card = CreditCard.find_by(id: @receipt.credit_card_id) %>
+<% @conf = Conference.find_by(id: @conf_reg.conference_id) %>
+
+CRS Receipt and Confirmation
+
+Hi <%= @user.name %>
+
+Thank you for registering for the <%= @conf.name %>! Below is a confirmation of your registration: 
+
+Total Paid: <%= number_to_currency(@receipt.total) %>
+
+Paid with <%= @card.cc_type %> ending in <%= @card.number %>
+
+Thank you for choosing CRS!
+
+Best,
+
+CRS Team

@@ -32,16 +32,12 @@ Rails.application.routes.draw do
   resources :papers
   end
 
-  resources :users do
-  resources :receipt
-  end
-  resources :conferences
+  resources :receipts
 
-  resources :conferences do
-  resources :conference_registrations
-  end
+  resources :conferences
   
   resources :conference_registrations
+  
   get 'select-conference' => 'conference_registrations#select_conference'
   get 'registration_summary' => 'conference_registrations#registration_summary'
   post 'registration/final' => 'conference_registrations#final'
