@@ -1,29 +1,11 @@
 Rails.application.routes.draw do
   
-  get 'credit_cards/index'
+  get 'coupons/generate_coupon_code'
+  get 'coupons/check_coupon_code'
+  post 'check_coupon_code' => 'coupons#check_coupon_code'
 
-  get 'credit_cards/new'
-
-  get 'credit_cards/create'
-
-  get 'credit_cards/edit'
-
-  get 'credit_cards/update'
-
-  get 'credit_cards/show'
-
-  get 'credit_cards/destroy'
-
-  get 'conferences/new'
-
-  get 'conferences/create'
-
-  get 'conferences/edit'
-
-  get 'conferences/update'
-
-  get 'conferences/destroy'
-
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  
   resources :users do
   resources :credit_cards
   end
@@ -33,17 +15,18 @@ Rails.application.routes.draw do
   end
 
   resources :receipts
-
   resources :conferences
-  
   resources :conference_registrations
+  resources :event_registrations
+  resources :users
+  resources :account_activations, only: [:edit]
+  resources :password_resets,     only: [:new, :create, :edit, :update]
   
   get 'select-conference' => 'conference_registrations#select_conference'
+  get 'select-events' => 'conference_registrations#select_events'
   get 'registration_summary' => 'conference_registrations#registration_summary'
+  post 'registration_summary' => 'conference_registrations#get_discount'
   post 'registration/final' => 'conference_registrations#final'
-  get 'password_resets/new'
-  get 'password_resets/edit'
-  get 'sessions/new'
 
   root             'static_pages#home'
   get 'help'    => 'static_pages#help'
@@ -53,9 +36,22 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
-  resources :users
-  resources :account_activations, only: [:edit]
-  resources :password_resets,     only: [:new, :create, :edit, :update]
+
+  get 'credit_cards/index'
+  get 'credit_cards/new'
+  get 'credit_cards/create'
+  get 'credit_cards/edit'
+  get 'credit_cards/update'
+  get 'credit_cards/show'
+  get 'credit_cards/destroy'
+  get 'conferences/new'
+  get 'conferences/create'
+  get 'conferences/edit'
+  get 'conferences/update'
+  get 'conferences/destroy'
+  get 'password_resets/new'
+  get 'password_resets/edit'
+  get 'sessions/new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

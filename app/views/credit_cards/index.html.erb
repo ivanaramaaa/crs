@@ -16,7 +16,7 @@
 			<% @credit_cards.each do |card| %>
 			<tr>
 				<td><%= card.name %></td>
-				<td><%= card.number %></td>
+				<td><%= mask(card.number) %></td>
 				<td><%= card.month %></td>
 				<td><%= card.year %></td>
 				<td><%= card.cvv %></td>

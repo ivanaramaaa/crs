@@ -8,4 +8,12 @@ module ApplicationHelper
       "#{page_title} | #{base_title}"
     end
   end
+
+  def last_digits(number)    
+    number.length <= 4 ? number : number.slice(-4..-1) 
+  end
+
+   def mask(number)
+     "XXXX-XXXX-XXXX-#{last_digits(number)}"
+   end
 end

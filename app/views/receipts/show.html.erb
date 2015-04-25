@@ -1,2 +1,68 @@
-<h1>Receipts#show</h1>
-<p>Find me in app/views/receipts/show.html.erb</p>
+<% provide(:title, 'Conference Registration Receipt') %>
+<h1>Registration Receipt</h1>
+<h2>Thank you for registering for the <br><%= @conference.name %>!</h2>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Participant Information</h3>
+			</div>
+			<div class="panel-body">
+				<p><strong>Name:</strong> <%= @conf_reg.name%></p>
+				<p><strong>Email:</strong> <%= @conf_reg.email %></p>
+				<p><strong>Participant's Dietary Preference:</strong> <%= @conf_reg.diet %></p>
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Paper Information</h3>
+			</div>
+			<div class="panel-body">
+				<% if @paper %>
+				<p><strong>Title:</strong> <%= @paper.title %></p>
+				<p><strong>Author(s):</strong> <%= @paper.authors %></p>
+				<p><p><strong>Title:</strong> <%= @paper.title %></p>
+				<% else %>
+				<p><strong>None</strong></p>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Selected Event(s) Information</h3>
+			</div>
+			<div class="panel-body">
+				<% if @events %>
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>Name</th>
+						<th>Event Type</th>
+						<th>Fee</th>
+					</tr>
+					<% @events.each do |event| %>
+					<tr>
+						<td><%= event.name %></td>
+						<td><%= event.event_type %></td>
+						<td><%= number_to_currency(event.fee) %></td>
+					</tr>
+					<% end %>
+				</table>
+				<% else %>
+				<p><strong>None</strong></p>
+				<% end %>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Payment Information</h3>
+			</div>
+			<div class="panel-body">
+				<p class="center"><strong><%= number_to_currency(@total) %> paid with credit card ending in <%= mask(@card.number) %></strong></p>
+			</div>
+		</div>
+		<%= button_to 'Print your receipt', 'your_link_here', :onclick => 'window.print();return false;', class: "btn btn-primary"%>
+	</div>
+</div>

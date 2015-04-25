@@ -5,11 +5,9 @@ CRS Receipt and Confirmation
 
 Hi <%= @user.name %>
 
-Thank you for registering for the <%= @conf.name %>! Below is a confirmation of your registration: 
+Thank you for registering for the <%= @conf.name %>!
 
-Total Paid: <%= number_to_currency(@receipt.total) %>
-
-Paid with <%= @card.cc_type %> ending in <%= @card.number %>
+A copy of your receipt can be found here: <%= link_to "Registration Receipt", "/receipts/#{@receipt.id}" %>
 
 Thank you for choosing CRS!
 

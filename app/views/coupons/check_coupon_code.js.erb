@@ -1,0 +1,9 @@
+$('#update_total').html("<%= escape_javascript (render partial: 'check_coupon_code') %>");
+//$('#replace_this').replaceWith("<%= escape_javascript( render partial: 'replace') %>");
+var discount = <%= @discount %>; 
+  
+$.ajax({
+  url: '/registration_summary',
+  type: 'POST',
+  data: { discount: discount }
+});

@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-
+gem 'cancan'
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'rails',                '4.2.0'
 gem 'bcrypt',               '3.1.7'
 gem 'faker',                '1.4.2'

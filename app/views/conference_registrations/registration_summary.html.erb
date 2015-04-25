@@ -2,7 +2,7 @@
 <h1>Registration Summary</h1>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<%= form_tag(controller: "conference_registrations", action: "final", method: "get") %>
+		
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Participant Information</h3>
@@ -13,6 +13,7 @@
 				<p><strong>Participant's Dietary Preference:</strong> <%= @conf_reg["diet"] %></p>
 			</div>
 		</div>
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Paper Information</h3>
@@ -29,19 +30,68 @@
 				<% end %>
 			</div>
 		</div>
+
 		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Selected Event(s) Information</h3>
+			</div>
+			<div class="panel-body">
+				<% if @events %>
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>Name</th>
+						<th>Event Type</th>
+						<th>Fee</th>
+					</tr>
+					<% @events.each do |event| %>
+					<% event = Event.find_by(id: event.to_i) %>
+					<tr>
+						<td><%= event.name %></td>
+						<td><%= event.event_type %></td>
+						<td><%= number_to_currency(event.fee) %></td>
+					</tr>
+					<% end %>
+				</table>
+				<% else %>
+				<p><strong>None</strong></p>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="panel panel-primary" id="update_total">
 			<div class="panel-heading">
 				<h3 class="panel-title">Fee Summary</h3>
 			</div>
-			<div class="panel-body">
-				<p><strong>Conference Fee:</strong> <%= @conference.fee %></p>
-				<p><strong>Paper Fee:</strong> <%= @conference.paper_fee %></p>
-				<hr/>
-				<p><strong>Total Due:</strong> <%= @conference.fee + @conference.paper_fee %></p>
-				<% total_due = @conference.fee + @conference.paper_fee %>
-				<%= hidden_field_tag :total,total_due %>
+			<div class="panel-body" id="total_due">
+				<table class="table table-condensed" >
+					<tr>
+						<td><strong>Conference Fee</strong></td>
+						<td><%= number_to_currency(@conference.fee) %></td>
+					</tr>
+					<tr>
+						<td><strong>Paper Fee</strong></td>
+						<td><%= number_to_currency(@conference.paper_fee) %></td>
+					</tr>
+					<tr>
+						<td><strong>Event(s) Fee</strong></td>
+						<td><%= number_to_currency(@event_fees) %></td>
+					</tr>
+					<tr class="info">
+						<td class="info"><strong>Total Due</strong></td>
+						<td class="info"><%= number_to_currency(@total) %></td>
+					</tr>
+				</table>
+				<div class="well" id="fail">
+					<p><strong>Participant coupon code?</strong></p>
+
+					<%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
+					  <%= f.text_field :code, :placeholder => "Enter your coupon code here" %>
+					  <%= f.submit "Apply Coupon Code", class: "btn btn-info"%>
+					<% end %>
+				</div>
 			</div>
 		</div>
+    <%= form_tag(controller: "conference_registrations", action: "final", method: "get") do %>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Payment Information</h3>
@@ -57,14 +107,15 @@
 					<% @cards.each do |card| %>
 					<tr>
 						<td><%= card.name %></td>
-						<td><%= card.number %></td>
+						<td><%= mask(card.number) %></td>
 						<td><%= card.cc_type %></td>
-						<td><%= check_box_tag :credit_card_id, card.id %></td>
+						<td><%= radio_button_tag :credit_card_id, card.id %></td>
 					</tr>
 					<% end %>
 				</table>
 			</div>
 		</div>
 		<%= submit_tag "Next", class: "btn btn-primary"%>
+		<% end %>
 	</div>
 </div>

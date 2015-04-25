@@ -39,6 +39,14 @@ class CreditCardsController < ApplicationController
     redirect_to user_credit_cards_path
   end
 
+  def last_digits(number)    
+    number.length <= 4 ? number : number.slice(-4..-1) 
+  end
+
+   def mask(number)
+     "XXXX-XXXX-XXXX-#{last_digits(number)}"
+   end
+
   private
   def card_params
     params.require(:credit_card).permit(:name, :number, :month, :year, :cvv, :cc_type)

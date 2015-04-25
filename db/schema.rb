@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150420164815) do
+ActiveRecord::Schema.define(version: 20150424162204) do
 
   create_table "conference_registrations", force: :cascade do |t|
     t.integer  "user_id"
@@ -38,9 +38,20 @@ ActiveRecord::Schema.define(version: 20150420164815) do
     t.decimal  "paper_fee"
   end
 
+  create_table "coupons", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.decimal  "discount"
+    t.integer  "conference_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "coupons", ["conference_id"], name: "index_coupons_on_conference_id"
+
   create_table "credit_cards", force: :cascade do |t|
     t.string   "name"
-    t.integer  "number"
+    t.string   "number"
     t.string   "month"
     t.integer  "year"
     t.integer  "cvv"
@@ -51,6 +62,27 @@ ActiveRecord::Schema.define(version: 20150420164815) do
   end
 
   add_index "credit_cards", ["user_id"], name: "index_credit_cards_on_user_id"
+
+  create_table "event_registrations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "event_registrations", ["event_id"], name: "index_event_registrations_on_event_id"
+  add_index "event_registrations", ["user_id"], name: "index_event_registrations_on_user_id"
+
+  create_table "events", force: :cascade do |t|
+    t.string   "name"
+    t.string   "event_type"
+    t.decimal  "fee"
+    t.integer  "conference_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "events", ["conference_id"], name: "index_events_on_conference_id"
 
   create_table "papers", force: :cascade do |t|
     t.string   "title"

@@ -1,0 +1,26 @@
+<% provide(:title, 'New Event Registration Form') %>
+<h1><%= @conference.name %><br><br>Special Events</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+	  <h2>Please select the additional events you would like to register for.</h2>
+		<%= form_tag new_conference_registration_path, method: :get %>
+		<table class="table table-bordered table-striped">
+			<tr>
+				<th>Event Name</th>
+				<th>Type</th>
+				<th>Fee</th>
+				<th>Select</th>
+			</tr>
+			<% @events.each do |event| %>
+			<tr>
+				<td><%= event.name %></td>
+				<td><%= event.event_type %></td>
+				<td><%= event.fee %></td>
+				<td><%= check_box_tag "events[]", event.id %></td>
+			</tr>
+			<% end %>
+		</table>
+		<%= hidden_field_tag :conference_id, @conference.id %>
+		<%= submit_tag "Next", class: "btn btn-primary" %>
+	</div>
+</div>

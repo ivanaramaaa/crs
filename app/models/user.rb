@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :conference_registrations
-  has_many :receipts, through: :conference_registrations
+  has_many :event_registrations
+  has_many :receipts
   has_many :credit_cards
   has_many :papers
 
@@ -71,6 +72,11 @@ class User < ActiveRecord::Base
   # Returns true if a password reset has expired.
   def password_reset_expired?
     reset_sent_at < 2.hours.ago
+  end
+
+  # Returns true if admin user
+  def admin?
+    admin
   end
   
   private

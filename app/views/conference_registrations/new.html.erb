@@ -25,7 +25,7 @@
 			<tr>
 				<td><%= paper.title %></td>
 				<td><%= paper.authors %></td>
-				<td><%= check_box_tag :paper_id, paper.id %></td>
+				<td><%= radio_button_tag :paper_id, paper.id %></td>
 			</tr>
 			<% end %>
 			
