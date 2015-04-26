@@ -29,7 +29,7 @@ class PapersController < ApplicationController
   def update
     @paper = current_user.papers.find(params[:id])
     if @paper.update(paper_params)
-      flash[:success] = "Your paper has been sucessfully updated"
+      flash[:success] = "Your paper has been successfully updated"
       redirect_to user_papers_path
     else
       render 'edit'

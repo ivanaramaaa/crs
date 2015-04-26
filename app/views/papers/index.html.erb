@@ -28,6 +28,7 @@
 				</tr>
 				<% end %>
 			</table>
+			<p class="text-center"><%= link_to 'Return to your dashboard', user_path(@user) %></p>
 			<% else %>
 			<h2>It looks like you haven't added any papers...yet!</h2>
 			<p class="text-center"><%= link_to 'Upload a new paper', new_user_paper_path(@user) %></p>

@@ -11,12 +11,13 @@ class CreditCardsController < ApplicationController
   end
 
   def create
+    @user = current_user
     @credit_card = current_user.credit_cards.new(card_params)
     if @credit_card.save
       flash[:success] = "The new credit card has been saved to your account"
-      redirect_to user_credit_cards_path
+      redirect_to user_credit_cards_path(@user)
     else
-      render 'new'
+      render 'credit_cards/new'
     end
   end
 
@@ -27,6 +28,7 @@ class CreditCardsController < ApplicationController
   def update
     @credit_card = current_user.credit_cards.find(params[:id])
     if @credit_card.update(card_params)
+      flash[:success] = "Your credit card has been successfully updated"
       redirect_to user_credit_cards_path
     else
       render 'edit'

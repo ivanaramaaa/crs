@@ -3,7 +3,6 @@
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<%= form_for([@user, @credit_card], :url => user_credit_cards_path) do |card| %>
-
 		<% if @credit_card.errors.any? %>
 		<div id="error_explanation">
 			<h2>
@@ -17,7 +16,7 @@
 			</ul>
 		</div>
 		<% end %>
-		<%= card.label :name %>
+		<%= card.label :name, "Cardholder Name" %>
 		<%= card.text_field :name %>
 		<%= card.label :number %>
 		<%= card.text_field :number %>
@@ -25,10 +24,10 @@
 		<%= card.text_field :month %>
 		<%= card.label :year %>
 		<%= card.number_field :year %>
-		<%= card.label :cvv %>
+		<%= card.label :cvv, "CVV"%>
 		<%= card.number_field :cvv %>
-		<%= card.label :cc_type %>
-		<%= card.text_field :cc_type %>
+		<%= card.label :cc_type, "Card Type" %>
+		<%= card.select :cc_type, options_for_select(%w[MasterCard Visa Discover American\ Express])%>
 		<%= card.submit "Add", class: "btn btn-primary" %>
 		<% end %>
 		<br>
