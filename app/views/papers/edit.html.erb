@@ -21,13 +21,16 @@
 		<%= paper.label :authors %>
 		<%= paper.text_field :authors %>
 		<% if paper.object.attachment? %>
-	
-		<%= label_tag("Current Paper: ") %>
-		<%= link_to paper.object.title, paper.object.attachment.url %>
-		<br>
-		  <%= label_tag :remove_attachment, "Remove paper?" %>
-		  <%= check_box_tag :remove_attachment %>
-		<p></p>
+	  <table class="table table-bordered table-striped">
+	    <tr>
+	      <td><%= label_tag("Current Paper") %></td>
+	      <td><%= link_to paper.object.title, paper.object.attachment.url %></td>
+	    </tr>
+	    <tr>
+	      <td><%= label_tag :remove_attachment, "Remove paper?" %></td>
+	      <td><%= check_box_tag :remove_attachment%></td>
+	    </tr>
+	    </table>
 		<% end %>
 		<%= paper.file_field :attachment %>
 
