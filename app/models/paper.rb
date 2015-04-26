@@ -5,6 +5,8 @@ class Paper < ActiveRecord::Base
 
   validates :title, :authors, :attachment, :user_id, presence: true
 
+  validates_uniqueness_of :title, :scope => [:authors], message: " exists. This paper has already been added to your account."
+
 	belongs_to :user
   
   before_save :perform_attachment_removal
