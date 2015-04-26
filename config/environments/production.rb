@@ -1,11 +1,8 @@
 Rails.application.configure do
   
   config.action_mailer.raise_delivery_errors = true
-
   config.action_mailer.delivery_method = :smtp
-
-  host = 'https://conference-registration.herokuapp.com'
-  
+  host = 'conference-registration.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',
@@ -15,7 +12,6 @@ Rails.application.configure do
     :password       => ENV['SENDGRID_PASSWORD'],
     :domain         => 'heroku.com',
     :enable_starttls_auto => true
-  }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
