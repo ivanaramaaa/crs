@@ -3,29 +3,26 @@
 	<div class="col-md-8 col-md-offset-2">
 		<div class="well">
 			<% if current_user.admin? %>
-			<h1>Admin Center</h1>
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">Conferences</h3>
-				</div>
-				<div class="panel-body">
-					<p><%= link_to "Manage CRS conferences", conferences_path %></p>
-					<p><%= link_to 'Add more conferences', new_conference_path %></p>
-				</div>
-			</div>
+			  <h1>Welcome, CRS Administrator!</h1>
 			<% else %>
 			<h1>
 				Welcome, <%= @user.name %>!
 			</h1>
 			<%= gravatar_for @user %>
+			<br>
 			<div class="text-center">
-				<h2>Select an option below to get started.</h2>
+			<div class="alert alert-info" role="alert">
+				<p>Select an option below to get started. Don't forget to add your papers and credit cards before starting a registration!</p>
+				</div>
 				<h3>Manage your conference registrations</h3>
 				<p><%= link_to "Submit a new conference registration", select_conference_path%></p>
 				<p><%= link_to "View all of your conference registrations", conference_registrations_path%></p>
 				<h3>Manage your papers</h3>
 				<p><%= link_to 'Upload a new paper', new_user_paper_path(@user) %></p>
 				<p><%= link_to 'View all of your papers', user_papers_path(@user) %></p>
+				<h3>Manage your credit cards</h3>
+        <p><%= link_to 'Add a new credit card', new_user_credit_card_path(@user)%></p>
+        <p><%= link_to 'View all of your credit cards', user_credit_cards_path(@user) %></p>
 				<% end %>
 			</div>
 		</div>

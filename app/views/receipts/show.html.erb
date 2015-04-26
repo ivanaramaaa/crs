@@ -15,27 +15,29 @@
 			</div>
 		</div>
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Paper Information</h3>
+    <% if @paper %>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Paper Information</h3>
+				</div>
+				<div class="panel-body">
+					<% if @paper %>
+					<p><strong>Title:</strong> <%= @paper.title %></p>
+					<p><strong>Author(s):</strong> <%= @paper.authors %></p>
+					<p><p><strong>Title:</strong> <%= @paper.title %></p>
+					<% else %>
+					<p><strong>None</strong></p>
+					<% end %>
+				</div>
 			</div>
-			<div class="panel-body">
-				<% if @paper %>
-				<p><strong>Title:</strong> <%= @paper.title %></p>
-				<p><strong>Author(s):</strong> <%= @paper.authors %></p>
-				<p><p><strong>Title:</strong> <%= @paper.title %></p>
-				<% else %>
-				<p><strong>None</strong></p>
-				<% end %>
-			</div>
-		</div>
-
+		<% end %>
+    
+    <% if @events != 0 %>
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Selected Event(s) Information</h3>
 			</div>
 			<div class="panel-body">
-				<% if @events %>
 				<table class="table table-bordered table-striped">
 					<tr>
 						<th>Name</th>
@@ -50,11 +52,40 @@
 					</tr>
 					<% end %>
 				</table>
-				<% else %>
-				<p><strong>None</strong></p>
-				<% end %>
 			</div>
 		</div>
+    <% end %>
+
+    <div class="panel panel-primary" id="update_total">
+			<div class="panel-heading">
+				<h3 class="panel-title">Fee Summary</h3>
+			</div>
+			<div class="panel-body" id="total_due">
+				<table class="table table-condensed" >
+					<tr>
+						<td><strong>Conference Fee</strong></td>
+						<td><%= number_to_currency(@conference.fee) %></td>
+					</tr>
+					<% if @paper %>
+						<tr>
+							<td><strong>Paper Fee</strong></td>
+							<td><%= number_to_currency(@conference.paper_fee) %></td>
+						</tr>
+					<% end %>
+					<% if @events != 0 %>
+						<tr>
+							<td><strong>Event(s) Fee</strong></td>
+							<td><%= number_to_currency(@event_fees) %></td>
+						</tr>
+					<% end %>
+					<tr class="info">
+						<td class="info"><strong>Total Paid</strong></td>
+						<td class="info"><%= number_to_currency(@total) %></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Payment Information</h3>

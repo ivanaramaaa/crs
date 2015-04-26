@@ -12,7 +12,7 @@
 			<% @conferences.each do |conference| %>
 			<tr>
 				<td><%= conference.name %></td>
-				<td><%= radio_button_tag :conference_id, conference.id %></td>
+				<td><%= radio_button_tag :conference_id, conference.id, checked: true %></td>
 			</tr>
 			<% end %>
 		</table>

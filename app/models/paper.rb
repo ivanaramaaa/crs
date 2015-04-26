@@ -1,8 +1,11 @@
 class Paper < ActiveRecord::Base
 	has_attached_file :attachment
+
 	validates_attachment_content_type :attachment, content_type: 'application/pdf'
+
+  validates :title, :authors, :attachment, :user_id, presence: true
+
 	belongs_to :user
-	validates :title, :authors, :attachment, presence: true
   
   before_save :perform_attachment_removal
 

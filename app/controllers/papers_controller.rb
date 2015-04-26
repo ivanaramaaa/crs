@@ -1,26 +1,29 @@
 class PapersController < ApplicationController
-	def index
+
+  def index
 		@papers = current_user.papers
 		@user = current_user
 	end
 
 	def new
-		@paper = current_user.papers.build
     @user = current_user
+		@paper = current_user.papers.build
 	end
 
 	def create
+    @user = current_user
 		@paper = current_user.papers.new(paper_params)
     if @paper.save
-      flash[:success] = "The new paper has been saved to your aaccount"
-      redirect_to user_papers_path
+      flash[:success] = "The new paper has been saved to your account"
+      redirect_to user_papers_path(@user)
     else
-      render 'new'
+      render 'papers/new'
     end
 	end
 
 	def edit
     @paper = current_user.papers.find(params[:id])
+    @user = current_user
   end
 
   def update

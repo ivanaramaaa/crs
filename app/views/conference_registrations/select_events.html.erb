@@ -15,7 +15,7 @@
 			<tr>
 				<td><%= event.name %></td>
 				<td><%= event.event_type %></td>
-				<td><%= event.fee %></td>
+				<td><%= number_to_currency(event.fee) %></td>
 				<td><%= check_box_tag "events[]", event.id %></td>
 			</tr>
 			<% end %>

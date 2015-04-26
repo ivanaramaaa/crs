@@ -14,49 +14,45 @@
 			</div>
 		</div>
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Paper Information</h3>
+    <% if @paper != nil %>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Paper Information</h3>
+				</div>
+				<div class="panel-body">
+					<p><strong>Title:</strong> <%= @paper.title %></p>
+					<p><strong>Author(s):</strong> <%= @paper.authors %></p>
+					<p><span class="label label-info">Attachment</span>
+						<%= link_to @paper.title, @paper.attachment.url %>
+					</p>
+				</div>
 			</div>
-			<div class="panel-body">
-				<% if @paper %>
-				<p><strong>Title:</strong> <%= @paper.title %></p>
-				<p><strong>Author(s):</strong> <%= @paper.authors %></p>
-				<p><span class="label label-info">Attachment</span>
-					<%= link_to @paper.title, @paper.attachment.url %>
-				</p>
-				<% else %>
-				<p><strong>None</strong></p>
-				<% end %>
+    <% end %>
+    
+    <% if @events != 0 %>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Selected Event(s) Information</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered table-striped">
+						<tr>
+							<th>Name</th>
+							<th>Event Type</th>
+							<th>Fee</th>
+						</tr>
+						<% @events.each do |event| %>
+						<% event = Event.find_by(id: event.to_i) %>
+						<tr>
+							<td><%= event.name %></td>
+							<td><%= event.event_type %></td>
+							<td><%= number_to_currency(event.fee) %></td>
+						</tr>
+						<% end %>
+					</table>
+				</div>
 			</div>
-		</div>
-
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<h3 class="panel-title">Selected Event(s) Information</h3>
-			</div>
-			<div class="panel-body">
-				<% if @events %>
-				<table class="table table-bordered table-striped">
-					<tr>
-						<th>Name</th>
-						<th>Event Type</th>
-						<th>Fee</th>
-					</tr>
-					<% @events.each do |event| %>
-					<% event = Event.find_by(id: event.to_i) %>
-					<tr>
-						<td><%= event.name %></td>
-						<td><%= event.event_type %></td>
-						<td><%= number_to_currency(event.fee) %></td>
-					</tr>
-					<% end %>
-				</table>
-				<% else %>
-				<p><strong>None</strong></p>
-				<% end %>
-			</div>
-		</div>
+		<% end %>
 
 		<div class="panel panel-primary" id="update_total">
 			<div class="panel-heading">
@@ -66,32 +62,43 @@
 				<table class="table table-condensed" >
 					<tr>
 						<td><strong>Conference Fee</strong></td>
-						<td><%= number_to_currency(@conference.fee) %></td>
+						<td><%= number_to_currency(@fee) %></td>
 					</tr>
-					<tr>
-						<td><strong>Paper Fee</strong></td>
-						<td><%= number_to_currency(@conference.paper_fee) %></td>
-					</tr>
-					<tr>
-						<td><strong>Event(s) Fee</strong></td>
-						<td><%= number_to_currency(@event_fees) %></td>
-					</tr>
+
+					<% if @paper != nil %>
+						<tr>
+							<td><strong>Paper Fee</strong></td>
+							<td><%= number_to_currency(@paper_fee) %></td>
+						</tr>
+					<% end %>
+
+					<% if @events != 0 %>
+						<tr>
+							<td><strong>Event(s) Fee</strong></td>
+							<td><%= number_to_currency(@event_fees) %></td>
+						</tr>
+					<% end %>
+
 					<tr class="info">
 						<td class="info"><strong>Total Due</strong></td>
 						<td class="info"><%= number_to_currency(@total) %></td>
 					</tr>
 				</table>
-				<div class="well" id="fail">
-					<p><strong>Participant coupon code?</strong></p>
 
+				<div class="well">
+					<p><strong>Participant coupon code?</strong></p>
 					<%= form_for @coupon, method: :post,  url: check_coupon_code_path, remote: true do |f| %>
 					  <%= f.text_field :code, :placeholder => "Enter your coupon code here" %>
 					  <%= f.submit "Apply Coupon Code", class: "btn btn-info"%>
 					<% end %>
+					<div id="fail"></div>
 				</div>
+
 			</div>
 		</div>
+
     <%= form_tag(controller: "conference_registrations", action: "final", method: "get") do %>
+    
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title">Payment Information</h3>
@@ -109,7 +116,7 @@
 						<td><%= card.name %></td>
 						<td><%= mask(card.number) %></td>
 						<td><%= card.cc_type %></td>
-						<td><%= radio_button_tag :credit_card_id, card.id %></td>
+						<td><%= radio_button_tag :credit_card_id, card.id, checked: true %></td>
 					</tr>
 					<% end %>
 				</table>

@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   has_many :conference_registrations
   has_many :event_registrations
-  has_many :receipts
   has_many :credit_cards
   has_many :papers
 

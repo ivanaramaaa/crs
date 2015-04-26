@@ -31,6 +31,7 @@
 		<%= card.text_field :cc_type %>
 		<%= card.submit "Add", class: "btn btn-primary" %>
 		<% end %>
+		<br>
+		<p class="text-center"><%= link_to 'Return to your dashboard', user_path(@user) %></p>
 	</div>
-	<p class="text-center"><%= link_to 'Go back to view all', user_credit_cards_path %></p>
 </div>

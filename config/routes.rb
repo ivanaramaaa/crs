@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :users do
   resources :papers
   end
-
+  resources :papers
   resources :receipts
   resources :conferences
   resources :conference_registrations

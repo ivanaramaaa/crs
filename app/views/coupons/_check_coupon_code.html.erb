@@ -5,34 +5,43 @@
 	<table class="table table-condensed" >
 		<tr>
 			<td><strong>Conference Fee</strong></td>
-			<td><%= number_to_currency(@conference.fee) %></td>
+			<td><%= number_to_currency(@fee) %></td>
 		</tr>
-		<tr>
-			<td><strong>Paper Fee</strong></td>
-			<td><%= number_to_currency(@conference.paper_fee) %></td>
-		</tr>
-		<tr>
-			<td><strong>Event(s) Fee</strong></td>
-			<td><%= number_to_currency(@event_fees) %></td>
-		</tr>
+
+		<% if @paper != nil %>
+			<tr>
+				<td><strong>Paper Fee</strong></td>
+				<td><%= number_to_currency(@paper_fee) %></td>
+			</tr>
+		<% end %>
+
+		<% if @events != 0 %>
+			<tr>
+				<td><strong>Event(s) Fee</strong></td>
+				<td><%= number_to_currency(@event_fees) %></td>
+			</tr>
+		<% end %>
+
 		<tr>
 			<td><strong>Subtotal</strong></td>
-			<td><%= number_to_currency(@conference.fee + @conference.paper_fee + @event_fees) %></td>
+			<td><%= number_to_currency(@total) %></td>
 		</tr>
-		<% total_due = @conference.fee + @conference.paper_fee + @event_fees %>
+
 		<tr class="success">
-		  <td class="success"><strong>Discount</strong></td>
-      <td class="success"><%= number_to_percentage(@discount * 100, precision: 0) %> off!</td>
+			<td class="success"><strong>Discount</strong></td>
+			<td class="success"><%= number_to_percentage(@discount * 100, precision: 0) %> off!</td>
 		</tr>
+
 		<tr class="success">
-		  <td class="success"><strong>Total Due</strong></td>
-      <td class="success"><%= number_to_currency(total_due-(@discount * total_due)) %></td>
+			<td class="success"><strong>Total Due</strong></td>
+			<td class="success"><%= number_to_currency(@total_due) %></td>
 		</tr>
+
 	</table>
-	<% total_due = total_due-(@discount * total_due) %>
+
 	<div class="well">
-	<div class="alert alert-success" role="alert">
-	<p class="center">Coupon successfully applied to your total!</p>
-	</div>
+		<div class="alert alert-success" role="alert">
+			<p class="center"><%= @discount_name %> successfully applied to your total!</p>
+		</div>
 	</div>
 </div>
