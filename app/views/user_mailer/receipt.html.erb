@@ -1,11 +1,68 @@
-<% @conf = Conference.find_by(id: @conf_reg.conference_id) %>
-
 <h1>CRS Receipt & Confirmation</h1>
 <p>Hi <%= @user.name %>,</p>
-<p>
-Thank you for registering for the <%= @conf.name %>!
-</p>
-<p>A copy of your receipt can be found here: <%= link_to "Registration Receipt", "/receipts/#{@receipt.id}" %></p>
+
+<p>Thank you for registering for the <%= @conf.name %>!</p>
+
+<h2>General Registration Information</h2>
+
+<table class="table">
+	<tr>
+		<td>Participant Name: </td>
+		<td><%= @conf_reg.name %></td>
+	</tr>
+	<tr>
+		<td>Participant Email: </td>
+		<td><%= @conf_reg.email %></td>
+	</tr>
+	<tr>
+		<td>Dietary Preference: </td>
+		<td><%= @conf_reg.diet %></td>
+	</tr>
+</table>
+
+<% if !@event_regs.empty? %>
+	<h2>Event Registration(s) Information</h2>
+	<table class="table">
+	<% @event_regs.each do |event| %>
+	  <% event = Event.find_by(id: event.event_id) %>
+		<tr>
+			<td>Event Name: </td>
+			<td><%= event.name %></td>
+		</tr>
+	<% end %>
+	</table>
+<% end %>
+
+<% if !@paper.nil? %>
+  <h2>Paper Registartion Information</h2>
+  <table class="table table-bordered table-striped">
+  	<tr>
+  	  <td>Paper Title: </td>
+  	  <td><%= @paper.title %></td>
+  	</tr>
+  	<tr>
+  	  <td>Paper Author(s): </td>
+  	  <td><%= @paper.authors %></td>
+  	</tr>
+  </table>
+<% end %>
+
+<h2>Payment Information</h2>
+<table class="table">
+	<tr>
+		<td>Cardholder Name: </td>
+		<td><%= @card.name %></td>
+	</tr>
+	<tr>
+		<td>Card Number: </td>
+		<td><%= @card_num %></td>
+	</tr>
+	<tr>
+		<td>Total Paid: </td>
+		<td><%= @total %></td>
+	</tr>
+</table>
+
 <p>Thank you for choosing CRS!</p>
 <p>Best,</p>
 <em>CRS Team</em>

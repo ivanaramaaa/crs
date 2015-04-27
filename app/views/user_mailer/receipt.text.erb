@@ -1,13 +1,31 @@
-<% @card = CreditCard.find_by(id: @receipt.credit_card_id) %>
-<% @conf = Conference.find_by(id: @conf_reg.conference_id) %>
-
 CRS Receipt and Confirmation
 
 Hi <%= @user.name %>
 
 Thank you for registering for the <%= @conf.name %>!
 
-A copy of your receipt can be found here: <%= link_to "Registration Receipt", "/receipts/#{@receipt.id}" %>
+*General Registration Information*
+Participant Name: <%= @conf_reg.name %>
+Participant Email: <%= @conf_reg.email %>
+Dietary Preference: <%= @conf_reg.diet %>
+
+<% if !@event_regs.empty? %>
+*Event Registration(s) Information*
+<% @event_regs.each do |event| %>
+<% event = Event.find_by(id: event.event_id) %>
+Event Name: <%= event.name %>
+<% end %>
+<% end %>
+<% if !@paper.nil? %>
+*Paper Registartion Information*
+Paper Title: <%= @paper.title %>
+Paper Author(s): <%= @paper.authors %>
+<% end %>
+
+*Payment Information*
+Cardholder Name: <%= @card.name %>
+Card Number: <%= @card_num %>
+Total Paid: <%= @total %>
 
 Thank you for choosing CRS!
 

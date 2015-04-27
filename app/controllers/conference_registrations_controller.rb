@@ -96,12 +96,14 @@ class ConferenceRegistrationsController < ApplicationController
 		
     # If events where selected...
 		@events = session[:events]
+		@event_regs = Array.new
 		if @events != 0
 		  @events.each do |event|
 			  event = Event.find_by(id: event.to_i)
 			  @event_fees = @event_fees + event.fee
 			  @event_reg = EventRegistration.new({:user_id => current_user.id, :event_id => event.id})
-			  @event_reg.save			
+			  @event_reg.save
+			  @event_regs << @event_reg	
 		  end
 		end
     
@@ -129,7 +131,7 @@ class ConferenceRegistrationsController < ApplicationController
 
 		if @receipt.save
 			flash[:success] = "Registration complete. Please print a copy of this receipt for your records."
-			UserMailer.receipt(current_user, @receipt, @conf_reg).deliver_now
+			UserMailer.receipt(current_user, @receipt, @conf_reg, @event_regs).deliver_now
 			@@discount = 0
 			redirect_to receipt_path(@receipt.id)
 		else

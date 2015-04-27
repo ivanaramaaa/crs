@@ -20,9 +20,11 @@ class UserMailerPreview < ActionMailer::Preview
   # Preview this email at
   # http://localhost:3000/rails/mailers/user_mailer/receipt
   def receipt
-    user = User.first
+    user = User.last
     receipt = Receipt.last
     registration = ConferenceRegistration.last
-    UserMailer.receipt(user, receipt, registration)
+    event_registrations = Array.new
+    event_registrations << EventRegistration.last
+    UserMailer.receipt(user, receipt, registration, event_registrations)
   end
 end
