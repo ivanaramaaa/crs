@@ -109,7 +109,8 @@ class ConferenceRegistrationsController < ApplicationController
     
     # Save conference registration.
 		@conf_reg = ConferenceRegistration.new(session[:tmp_conf_reg])
-		@conf_reg.save
+		
+		if @conf_reg.save
 
     # If a paper was selected...
     @paper_id = @conf_reg.paper_id
@@ -135,9 +136,12 @@ class ConferenceRegistrationsController < ApplicationController
 			@@discount = 0
 			redirect_to receipt_path(@receipt.id)
 		else
-			flash[:danger] = "Duplicate registration: It looks like you've already registered for this conference."
 			render 'registration_summary'
 		end
+    else
+    	flash[:danger] = "Duplicate registration: It looks like you've already registered for this conference."
+    	redirect_to action: :registration_summary
+    end
 	end
 
 	private

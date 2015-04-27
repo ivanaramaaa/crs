@@ -1,7 +1,7 @@
 class ConferenceRegistration < ActiveRecord::Base
   validates :user_id, :conference_id, :diet, :name, :email, presence: true
 
-  validates_uniqueness_of :user_id, :scope => [:conference_id, :paper_id], message: " cannot register the same paper for the same conference twice."
+  validates_uniqueness_of :user_id, :scope => [:name, :email, :conference_id, :paper_id], message: " cannot register the same paper for the same conference twice."
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
