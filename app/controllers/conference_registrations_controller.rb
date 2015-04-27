@@ -136,11 +136,12 @@ class ConferenceRegistrationsController < ApplicationController
 			@@discount = 0
 			redirect_to receipt_path(@receipt.id)
 		else
+			flash.now[:danger] = "Duplicate registration: It looks like you've already registered for this conference."
 			render 'registration_summary'
 		end
     else
-    	flash[:danger] = "Duplicate registration: It looks like you've already registered for this conference."
-    	redirect_to action: :registration_summary
+    	flash.now[:danger] = "Duplicate registration: It looks like you've already registered for this conference."
+    	render 'registration_summary'
     end
 	end
 
