@@ -50,6 +50,7 @@ class ConferenceRegistrationsController < ApplicationController
 	end
 
 	def registration_summary
+		@user = current_user
 		# Retrieve selected conference registration details.
 	  @conf_reg = session[:tmp_conf_reg]
 		@conference = Conference.find_by(id: @conf_reg["conference_id"])

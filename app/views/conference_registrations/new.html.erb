@@ -4,17 +4,18 @@
 	<div class="col-md-6 col-md-offset-3">
 		<%= form_for @conf_reg do |reg| %>
 		<%= reg.label :name %>
-		<%= reg.text_field :name %>
+		<%= reg.text_field :name, required: true, placeholder: "Jane Doe"%>
 		<%= reg.label :email %>
-		<%= reg.text_field :email %>
+		<%= reg.text_field :email, required: true, pattern: '[^@]+@[^@]+\.[a-zA-Z]{2,6}', placeholder: "email@example.com" %>
 		<%= reg.label 'Dietary preference' %>
-		<%= reg.text_field :diet %>
+		<%= reg.text_field :diet, required: true, placeholder: "Vegan" %>
 		<%= reg.hidden_field :user_id, value: @user.id %>
 		<%= reg.hidden_field :conference_id, value: @conference.id %>
 
 		<%= form_tag new_conference_registration_path, method: :get %>
 		<h1>Paper Information</h1>
     <h2>If you would like to register one of your papers, please select one from below.</h2>
+    <% if !@papers.empty? %>
 		<table class="table table-bordered table-striped">
 			<tr>
 				<th>Title</th>
@@ -30,7 +31,12 @@
 			<% end %>
 			
 		</table>
-
+		<% else %>
+    <div class="alert alert-danger center" role="alert">
+				<p>It looks like you haven't added any credit cards to your profile. Please add at least one credit card in order to proceed.</p>
+				 <p><%= link_to 'Upload a new paper', new_user_paper_path(@user), class: "alert-link" %></p>
+				 </div>
+		<% end %>
 		<%= reg.submit "Next", class: "btn btn-primary"%>
 		<% end %>		
 	</div>

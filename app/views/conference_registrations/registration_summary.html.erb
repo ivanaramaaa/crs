@@ -1,5 +1,5 @@
 <% provide(:title, 'Conference Registration Form Summary') %>
-<h1>Registration Summary</h1>
+<h1><%= @conference.name %><br><br>Registration Summary</h1>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		
@@ -104,6 +104,7 @@
 				<h3 class="panel-title">Payment Information</h3>
 			</div>
 			<div class="panel-body">
+			  <% if !@cards.empty? %>
 				<table class="table table-bordered table-striped">
 					<tr>
 						<th>Name</th>
@@ -120,9 +121,15 @@
 					</tr>
 					<% end %>
 				</table>
+				<% else %>
+				<div class="alert alert-danger center" role="alert">
+				<p>It looks like you haven't added any credit cards to your profile. Please add at least one credit card in order to proceed.</p>
+				 <p><%= link_to 'Add a new credit card', new_user_credit_card_path(@user), class: "alert-link" %></p>
+				 </div>
+				<% end %>
 			</div>
 		</div>
-		<%= submit_tag "Next", class: "btn btn-primary"%>
+		<%= submit_tag "Finalize registration!", class: "btn btn-primary"%>
 		<% end %>
 	</div>
 </div>
