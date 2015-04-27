@@ -2,18 +2,20 @@
 <h1>All conferences</h1>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-	  <h2>Select a conference to register for.</h2>
-	  <%= form_tag select_events_path, method: :get %>
+		<h2>Select a conference to register for.</h2>
+		<%= form_tag select_events_path, method: :get %>
 		<table class="table table-bordered table-striped">
 			<tr>
 				<th>Conference Name</th>
 				<th>Select One</th>
 			</tr>
 			<% @conferences.each do |conference| %>
+			<% if conference.start_date.future? %>
 			<tr>
 				<td><%= conference.name %></td>
 				<td><%= radio_button_tag :conference_id, conference.id, checked: true %></td>
 			</tr>
+			<% end %>
 			<% end %>
 		</table>
 		<%= submit_tag "Next", class: "btn btn-primary" %>
