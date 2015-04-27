@@ -39,7 +39,7 @@ class UserMailer < ApplicationMailer
    if !@paper_id.nil?
      @paper = Paper.find_by(id: @paper_id)
    end
-   @card = CreditCard.find_by(id: 4)
+   @card = CreditCard.find_by(id: @receipt.credit_card_id)
    @card_num = mask(@card.number)
    @total = number_to_currency(@receipt.total)
    mail to: user.email, subject: "CRS Conference Registration Receipt"
